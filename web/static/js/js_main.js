@@ -51,7 +51,7 @@ window.addEventListener("load", () => {
 })
 
 async function getData() {
-  const response = await fetch("http://127.0.0.1:8000/api/categories_json/")
+  const response = await fetch("http://127.0.0.1:8080/api/categories_json/")
   const { data } = await response.json()
   categoriesArray = data
 }
