@@ -1,183 +1,191 @@
-let form
-let textarea
-let input
-let item
-let dataList
-let selectedList
-let categoriesUl = document.createElement("ul")
-let selectedUl = document.createElement("ul")
-categoriesUl.className = `categories__list`
-selectedUl.className = `selected-categories__list`
-let categoriesArray
-let selectedCategories = []
+let form_add
+let textarea_add
+let input_add
+let item_add
+let dataList_add
+let selectedList_add
+let categoriesUl_add = document.createElement("ul")
+let selectedUl_add = document.createElement("ul")
+categoriesUl_add.className = `categories__listADD`
+selectedUl_add.className = `selected-categories__listADD`
+let categoriesArray_add
+let selectedCategories_add = []
 
 window.addEventListener("load", () => {
-  getData()
-  form = document.getElementsByTagName("form")[0]
-  textarea = document.querySelector("#id_additionals")
-  input = document.querySelector("#id_request_for_add")
-  input.before(selectedUl)
-  form.addEventListener("click", function (e) {
-    addSelectedHandler(e)
+  getDataADD()
+  form_add = document.getElementsByTagName("form")[0]
+  textarea_add = document.querySelector("#id_additionals")
+  input_add = document.querySelector("#id_request_for_add")
+  input_add.before(selectedUl_add)
+  form_add.addEventListener("click", function (e) {
+    addSelectedHandlerADD(e)
   })
-  selectedList = document.querySelector(".selected-categories__list")
+  selectedList_add = document.querySelector(".selected-categories__listADD")
 
-  item = document.querySelector(".categories__item")
-  input.addEventListener("focus", () => {
-    input.after(categoriesUl)
-    dataList = document.querySelector(".categories__list")
-    dataList.innerHTML = renderCategories(categoriesArray, "categories__item")
+  item_add = document.querySelector(".categories__itemADD")
+  input_add.addEventListener("focus", () => {
+    input_add.after(categoriesUl_add)
+    dataList_add = document.querySelector(".categories__listADD")
+    dataList_add.innerHTML = renderCategoriesADD(categoriesArray_add, "categories__itemADD")
+
   })
 
-  input.addEventListener("input", (e) => {
-    input.value == ""
-      ? input.classList.add("empty")
-      : input.classList.remove("empty")
+  input_add.addEventListener("input", (e) => {
+    input_add.value == ""
+      ? input_add.classList.add("emptyADD")
+      : input_add.classList.remove("emptyADD")
 
-    if (input.value !== "") {
-      let searched = searchData(e.target.value)
-      dataList.innerHTML = renderCategories(searched, "categories__item")
+    if (input_add.value !== "") {
+      let searched_add  = searchDataADD(e.target.value)
+      dataList_add.innerHTML = renderCategoriesADD(searched_add, "categories__itemADD")
     }
   })
 
-  input.addEventListener("keypress", (e) => {
+  input_add.addEventListener("keypress", (e) => {
     console.log("e", e)
     if (e.key === "Enter") {
-      addSelectedHandler(e)
+      addSelectedHandlerADD(e)
     }
   })
 })
 
-async function getData() {
-  const response = await fetch("http://127.0.0.1:8080/api/categories_json/")
-  const { data } = await response.json()
-  categoriesArray = data
+async function getDataADD() {
+  const responseADD = await fetch("http://127.0.0.1:8000/api/categories_json/")
+  const { additional } = await responseADD.json()
+  categoriesArray_add = additional
 }
 
-function addCategory(category) {
-  console.log("selectedCategories", selectedCategories)
-  if (selectedCategories.includes(category)) {
-    deleteIfExist(category)
+function addCategoryADD(category) {
+  console.log("selectedCategories_add", selectedCategories_add)
+  if (selectedCategories_add.includes(category)) {
+    deleteIfExistADD(category)
   } else {
-    selectedCategories.push(category)
+    selectedCategories_add.push(category)
   }
 }
-function deleteIfExist(category) {
+function deleteIfExistADD(category) {
   console.log(
-    "selectedCategories.splice(selectedCategories.indexOf(category),1)"
+    "selectedCategories_add.splice(selectedCategories_add.indexOf(category),1)"
   )
-  selectedCategories.splice(selectedCategories.indexOf(category), 1)
+  selectedCategories_add.splice(selectedCategories_add.indexOf(category), 1)
 }
-function addSelectedHandler(e) {
+function addSelectedHandlerADD(e) {
   if (e.target.value && e.target.className == "cls_request_for_add") {
-    addCategory(e.target.value)
-    renderSelectedCategoriesElement()
-    recalcInputWidth()
+    addCategoryADD(e.target.value)
+    renderSelectedCategoriesElementADD()
+    recalcInputWidthADD()
   }
 
   if (e.target && e.target.id == "selectjs") {
-    addCategory('Emails & Contacts Scraper')
-    renderSelectedCategoriesElement()
-    recalcInputWidth()
+    addCategoryADD('Emails & Contacts Scraper')
+    renderSelectedCategoriesElementADD()
+    recalcInputWidthADD()
   }
 
-  if (e.target && e.target.className.split(" ")[0] == "categories__item") {
-    addCategory(e.target.firstElementChild.textContent)
-    renderSelectedCategoriesElement()
-    recalcInputWidth()
+  if (e.target && e.target.className.split(" ")[0] == "categories__itemADD") {
+    addCategoryADD(e.target.firstElementChild.textContent)
+    renderSelectedCategoriesElementADD()
+    recalcInputWidthADD()
   }
 
-  if (e.target && e.target.className == "categories__value") {
-    addCategory(e.target.textContent)
-    renderSelectedCategoriesElement()
-    recalcInputWidth()
+  if (e.target && e.target.className == "categories__valueADD") {
+    addCategoryADD(e.target.textContent)
+    renderSelectedCategoriesElementADD()
+    recalcInputWidthADD()
   }
   console.log("e.target", e.target)
   if (
     e.target.parentElement &&
-    e.target.parentElement.className == "selected-categories__item"
+    e.target.parentElement.className == "selected-categories__itemADD"
   ) {
-    deleteCategory(e.target.parentElement.firstChild.data)
-    renderSelectedCategoriesElement()
-    recalcInputWidth()
+    deleteCategoryADD(e.target.parentElement.firstChild.data)
+    renderSelectedCategoriesElementADD()
+    recalcInputWidthADD()
   }
-  input.value = ""
-  dataList.innerHTML = renderCategories(categoriesArray, "categories__item")
-
-  if (selectedCategories) {
-    textarea.value = selectedCategories.join("\n")
+  try {
+      input_add.value = ""
+      dataList_add.innerHTML = renderCategoriesADD(categoriesArray_add, "categories__itemADD")
+  } catch (err) {
+      //pass
+  }
+  if (selectedCategories_add) {
+    textarea_add.value = selectedCategories_add.join("\n")
   }
 }
 
-function deleteCategory(value) {
-  selectedCategories = selectedCategories.filter(
+function deleteCategoryADD(value) {
+  selectedCategories_add = selectedCategories_add.filter(
     (category) => category != value
   )
 }
-function renderCategories(renderArray, className, span = false) {
-  let result = ``
+function renderCategoriesADD(renderArray, className, span = false) {
+  let result_add = ``
   if (renderArray) {
     renderArray.forEach((category) => {
-      let isSelected = selectedCategories.includes(category) ? true : false
-      let elem = document.createElement("li")
+      let isSelected_add = selectedCategories_add.includes(category) ? true : false
+      let elem_add = document.createElement("li")
 
       span
-        ? (elem.className = `selected-categories__item`)
-        : (elem.className = `categories__item ${
-            isSelected ? "active-selected" : "inactive"
+        ? (elem_add.className = `selected-categories__itemADD`)
+        : (elem_add.className = `categories__itemADD ${
+            isSelected_add ? "active-selectedADD" : "inactiveADD"
           }`)
-      elem.innerHTML = span
-        ? `${category}<span class="selected-categories__cross">&#10005;</span>`
-        : isSelected
-        ? `<div class="categories__value">${category}</div>`
-        : `<div class="categories__value">${category}</div>`
+      elem_add.innerHTML = span
+        ? `${category}<span class="selected-categories__crossADD">&#10005;</span>`
+        : isSelected_add
+        ? `<div class="categories__valueADD">${category}</div>`
+        : `<div class="categories__valueADD">${category}</div>`
 
-      result += elem.outerHTML
+      result_add  += elem_add.outerHTML
     })
   }
-  return result
+  return result_add
 }
 
-function renderSelectedCategoriesElement() {
-  selectedList.innerHTML = renderCategories(
-    selectedCategories,
-    "selected-categories__item",
+function renderSelectedCategoriesElementADD() {
+  selectedList_add.innerHTML = renderCategoriesADD(
+    selectedCategories_add,
+    "selected-categories__itemADD",
     true
   )
-  if (selectedCategories.length > 3) {
-    selectedList.innerHTML = renderCategories(
-      selectedCategories.slice(0, 3),
-      "selected-categories__item",
+  if (selectedCategories_add.length > 3) {
+    selectedList_add.innerHTML = renderCategoriesADD(
+      selectedCategories_add.slice(0, 3),
+      "selected-categories__itemADD",
       true
     )
   }
 }
-function recalcInputWidth() {
-  if (selectedList.clientWidth > 220) {
-    selectedList.lastElementChild.outerHTML = `<li class='selected-categories__item selected-array'>${selectedCategories.length}...<span class="selected-categories__cross"></span></li>`
+function recalcInputWidthADD() {
+  if (selectedList_add.clientWidth > 220) {
+    selectedList_add.lastElementChild.outerHTML = `<li class='selected-categories__itemADD selected-arrayADD'>${selectedCategories_add.length}...<span class="selected-categories__crossADD"></span></li>`
   } else {
-    selectedList.innerHTML = renderCategories(
-      selectedCategories,
-      "selected-categories__item",
+    selectedList_add.innerHTML = renderCategoriesADD(
+      selectedCategories_add,
+      "selected-categories__itemADD",
       true
     )
   }
-  input.style = `padding-left: ${selectedList.clientWidth + 10}px;`
+  input_add.style = `padding-left: ${selectedList_add.clientWidth + 10}px;`
 }
-function searchData(value) {
-  let result
-  if (categoriesArray) {
-    result = categoriesArray.filter((item) => item.includes(value))
+function searchDataADD(value) {
+  let result_add
+  if (categoriesArray_add) {
+    result_add = categoriesArray_add.filter((item_add) => item_add.includes(value))
   }
-  return result
+  return result_add
 }
 
-const popup = document.querySelector(".categories__list");
-document.onclick = function (e) {
-    if (e.target.className != "categories__list" && e.target.className != "categories__item" && e.target.className != "categories__value" && e.target.className != "active-selected" && e.target.className != "inactive" && e.target.className != "div_bl" && e.target.id != "selectjs" ) {
-        document.querySelector(".categories__list").style.display = "none";
-    };
-    if (e.target.className == "cls_request_for_add") {
-        document.querySelector(".categories__list").style.display = "block";
-    };
-};
+// const popup = document.querySelector(".categories__listADD");
+// document.onclick = function (e) {
+//     if (e.target.className != "categories__listADD" && e.target.className != "categories__itemADD" && e.target.className != "categories__valueADD" && e.target.className != "active-selectedADD" && e.target.className != "inactiveADD" && e.target.className != "div_blADD" && e.target.id != "selectjs" ) {
+//         try {
+//             document.querySelector(".categories__listADD").style.display = "none";
+//         } catch (err) {
+//             //pass
+//         }
+//     };
+//     if (e.target.className == "cls_request_for_add") {
+//         document.querySelector(".categories__listADD").style.display = "block";
+//     };
+// };
