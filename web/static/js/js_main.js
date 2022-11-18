@@ -171,3 +171,13 @@ function searchData(value) {
   }
   return result
 }
+
+const popup = document.querySelector(".categories__list");
+document.onclick = function (e) {
+    if (e.target.className != "categories__list" && e.target.className != "categories__item" && e.target.className != "categories__value" && e.target.className != "active-selected" && e.target.className != "inactive" && e.target.className != "div_bl" && e.target.id != "selectjs" ) {
+        document.querySelector(".categories__list").style.display = "none";
+    };
+    if (e.target.className == "style_task_form") {
+        document.querySelector(".categories__list").style.display = "block";
+    };
+};
