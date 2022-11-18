@@ -1,5 +1,3 @@
-console.log("test js_main.js")
-
 let form
 let textarea
 let input
@@ -76,6 +74,14 @@ function addSelectedHandler(e) {
     renderSelectedCategoriesElement()
     recalcInputWidth()
   }
+
+  if (e.target && e.target.id == "selectjs") {
+    console.log('selectjs')
+    addCategory(e.target.firstElementChild.textContent)
+    renderSelectedCategoriesElement()
+    recalcInputWidth()
+  }
+
   if (e.target && e.target.className.split(" ")[0] == "categories__item") {
     addCategory(e.target.firstElementChild.textContent)
     renderSelectedCategoriesElement()
@@ -124,7 +130,7 @@ function renderCategories(renderArray, className, span = false) {
       elem.innerHTML = span
         ? `${category}<span class="selected-categories__cross">&#10005;</span>`
         : isSelected
-        ? `<div class="categories__value">${category}</div> <div style="color:#1890ff;" >&#10004;</div>`
+        ? `<div class="categories__value">${category}</div>`
         : `<div class="categories__value">${category}</div>`
 
       result += elem.outerHTML
