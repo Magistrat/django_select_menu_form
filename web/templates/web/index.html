@@ -20,12 +20,8 @@
             {% csrf_token %}
 
             <p>Request (для задания)</p>
-            <!-- {{ form.request }}<br>
+            <input type="text" name="request_for_add" class="cls_request_for_add" readonly="true" id="id_request_for_add">
 
-            {{ form.request.errors }}<br> -->
-
-            <input type="text" name="request" class="style_task_form" readonly="true" id="id_request">
-            <!-- Выводит текст ошибки для поля 'request' (если есть) -->
 
             <p>Дополнительное поле для примера (возможно textarea будет удобнее input'a на функционал это не влияет)</p>
             {{ form.location01 }}<br>

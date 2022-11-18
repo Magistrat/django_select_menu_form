@@ -15,7 +15,7 @@ window.addEventListener("load", () => {
   getData()
   form = document.getElementsByTagName("form")[0]
   textarea = document.querySelector("#id_location01")
-  input = document.querySelector("#id_request")
+  input = document.querySelector("#id_request_for_add")
   input.before(selectedUl)
   form.addEventListener("click", function (e) {
     addSelectedHandler(e)
@@ -69,7 +69,7 @@ function deleteIfExist(category) {
   selectedCategories.splice(selectedCategories.indexOf(category), 1)
 }
 function addSelectedHandler(e) {
-  if (e.target.value && e.target.className == "style_task_form") {
+  if (e.target.value && e.target.className == "cls_request_for_add") {
     addCategory(e.target.value)
     renderSelectedCategoriesElement()
     recalcInputWidth()
@@ -177,7 +177,7 @@ document.onclick = function (e) {
     if (e.target.className != "categories__list" && e.target.className != "categories__item" && e.target.className != "categories__value" && e.target.className != "active-selected" && e.target.className != "inactive" && e.target.className != "div_bl" && e.target.id != "selectjs" ) {
         document.querySelector(".categories__list").style.display = "none";
     };
-    if (e.target.className == "style_task_form") {
+    if (e.target.className == "cls_request_for_add") {
         document.querySelector(".categories__list").style.display = "block";
     };
 };

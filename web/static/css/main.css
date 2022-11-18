@@ -60,9 +60,7 @@ a:hover{
 }
 
 
-/* .style_task_form{
-    width: 550px;
-} */
+
 input {
   -webkit-appearance: none;
   outline: none;
@@ -81,7 +79,7 @@ form {
   position: relative;
   margin-bottom: 10px;
 }
-.style_task_form {
+.cls_request_for_add {
   width: 100%;
   padding: 5px;
   border: 1px solid rgb(0, 94, 255);
