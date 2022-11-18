@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=1100">
     <meta name="robots" content="all">
     <link rel="stylesheet" href="{% static 'css/main.css'%}">
-    <script type="text/javascript" src="{% static 'js/js_main.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/js.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/js_additionals.js' %}"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Rubik:wght@300&family=Ubuntu&display=swap" rel="stylesheet">
     <title>Home page</title>
 </head>
@@ -19,7 +18,7 @@
         <h3>Поля формы для задания:</h3>
         <form name="myform" method="post" onsubmit="return false;">
             {% csrf_token %}
-            <!-- csrf_token необходим для безопастной отправки формы, без него не будет работать -->
+
             <p>Request (для задания)</p>
             <!-- {{ form.request }}<br>
 
@@ -31,7 +30,7 @@
             <p>Дополнительное поле для примера (возможно textarea будет удобнее input'a на функционал это не влияет)</p>
             {{ form.location01 }}<br>
 
-            <!-- <button type="submit">Add Task</button> -->
+
 
         </form>
         <input type="button" value="Отправить" onclick="document.forms['myform'].submit();">
