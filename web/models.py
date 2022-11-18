@@ -3,7 +3,7 @@ from django.urls import reverse
 
 class Task(models.Model):
     request = models.TextField(verbose_name='request_query', blank=True)
-    location01 = models.TextField(max_length=200, verbose_name='first_location')
+    additionals = models.CharField(max_length=200, blank=True, verbose_name='additional_services')
 
     def delete_url(self):
         return reverse('delete-model', kwargs={'pk': self.id})

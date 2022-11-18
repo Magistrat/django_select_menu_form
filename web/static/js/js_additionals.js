@@ -14,7 +14,7 @@ let selectedCategories = []
 window.addEventListener("load", () => {
   getData()
   form = document.getElementsByTagName("form")[0]
-  textarea = document.querySelector("#id_location01")
+  textarea = document.querySelector("#id_additionals")
   input = document.querySelector("#id_request_for_add")
   input.before(selectedUl)
   form.addEventListener("click", function (e) {
