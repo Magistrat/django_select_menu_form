@@ -21,9 +21,11 @@
             {% csrf_token %}
             <!-- csrf_token необходим для безопастной отправки формы, без него не будет работать -->
             <p>Request (для задания)</p>
-            {{ form.request }}<br>
+            <!-- {{ form.request }}<br>
 
-            {{ form.request.errors }}<br>
+            {{ form.request.errors }}<br> -->
+
+            <input type="text" name="request" class="style_task_form" readonly="true" id="id_request">
             <!-- Выводит текст ошибки для поля 'request' (если есть) -->
 
             <p>Дополнительное поле для примера (возможно textarea будет удобнее input'a на функционал это не влияет)</p>

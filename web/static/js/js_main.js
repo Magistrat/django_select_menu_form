@@ -76,8 +76,7 @@ function addSelectedHandler(e) {
   }
 
   if (e.target && e.target.id == "selectjs") {
-    console.log('selectjs')
-    addCategory(e.target.firstElementChild.textContent)
+    addCategory('Emails & Contacts Scraper')
     renderSelectedCategoriesElement()
     recalcInputWidth()
   }

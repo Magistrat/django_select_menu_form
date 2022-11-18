@@ -9,8 +9,8 @@ from django.db import models
 class Interview_form(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['request', 'location01']
+        fields = ['location01',]
         widgets = {
-            'request': forms.TextInput(attrs={'class': 'style_task_form'}),
+            # 'request': forms.TextInput(attrs={'class': 'style_task_form', 'readonly': 'true'}),
             'location01': forms.Textarea(attrs={'value': 123}),
         }
